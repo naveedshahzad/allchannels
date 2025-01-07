@@ -68,6 +68,7 @@ def update_publish_at(prevouse_publish_at):
     subprocess.run(["git", "commit", "-m", commit_message])
 
     # Push the changes to GitHub
+    print(f"https://{GITHUB_TOKEN}@github.com/naveedshahzad/lifefule.git")
     subprocess.run(["git", "push", "https://{GITHUB_TOKEN}@github.com/naveedshahzad/lifefule.git", "main"])
 
     print("Publish time successfully updated on GitHub!")
