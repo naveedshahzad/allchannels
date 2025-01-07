@@ -38,9 +38,9 @@ import requests
 #GITHUB_TOKEN = "your_personal_access_token"
 REPO_OWNER = "naveedshahzad"
 REPO_NAME = "lifefule"
+GITHUB_TOKEN = read_file(GITHUB_TOKEN_FILE)  # Your GitHub personal access token
 
 def update_github_variable(variable_name, new_value):
-    GITHUB_TOKEN = read_file(GITHUB_TOKEN_FILE)  # Your GitHub personal access token
     #GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
     # GitHub API endpoint for updating repository variables
     api_url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/actions/variables/{variable_name}"
@@ -66,6 +66,73 @@ def update_github_variable(variable_name, new_value):
         print(f"Failed to update variable. Status code: {response.status_code}")
         print(f"Response: {response.text}")
 
+def read_github_variable(variable_name):
+    #GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+    # GitHub API endpoint for updating repository variables
+    api_url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/actions/variables/{variable_name}"
+
+    # Request headers
+    headers = {
+        "Authorization": f"Bearer {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github+json"
+    }
+
+    # Payload with the new value for the variable
+    #payload = {
+    #    "name": variable_name,
+    #    "value": new_value
+    #}
+
+    # Make a PATCH request to update the variable
+    response = requests.get(api_url, headers=headers)
+
+    if response.status_code >= 200 and response.status_code <= 300:
+        print(f"Variable '{variable_name}' read successfully as '{response.body}' or {response.text}.")
+    else:
+        print(f"error Variable '{variable_name}' read successfully as '{response.body}' or {response.text}.")
+        print(f"Failed to update variable. Status code: {response.status_code}")
+        print(f"Response: {response.text}")
+
+def update_publish_at(prevouse_publish_at):
+    # Parse the publish_at timestamp
+    #publish_at = "2025-01-07T22:00:00Z"  # Example input
+    publish_at = prevouse_publish_at  # Example input
+    time = datetime.fromisoformat(publish_at.replace("Z", "+00:00"))
+
+    print(f"{time.isoformat()} hour {time.hour}")
+    # Adjust time based on the hour
+    if time.hour == 22:
+        time += timedelta(hours=15)
+    else:
+        time += timedelta(hours=9)
+    print(f"{time.isoformat()} hour {time.hour}")
+
+    update_github_variable("PUBLISH_AT", time.isoformat())
+    ## Write the updated time to a file
+    #with open("publish_time.txt", "w") as file:
+    #    file.write(time.isoformat())
+
+    ## Print the updated time
+    #print(f"Updated time for next video scheduling {time.isoformat()}")
+
+    ## GitHub Repository Details
+    #REPO_PATH = "."  # Path to your local GitHub repository
+    #GITHUB_TOKEN = read_file(GITHUB_TOKEN_FILE)  # Your GitHub personal access token
+
+    ## Set Git configuration if not already set
+    #os.chdir(REPO_PATH)
+    #subprocess.run(["git", "config", "--global", "user.email", "naveedkpr+1@gmail.com"])
+    #subprocess.run(["git", "config", "--global", "user.name", "Muhammad Naveed Shahzad"])
+
+    ## Add changes to Git
+    #subprocess.run(["git", "add", "publish_time.txt"])
+
+    ## Commit the changes
+    #commit_message = f"Update publish time: {time.isoformat()}"
+    #subprocess.run(["git", "commit", "-m", commit_message])
+
+    ## Push the changes to GitHub
+    #print(f"https://{GITHUB_TOKEN}@github.com/naveedshahzad/lifefule.git")
 def update_publish_at(prevouse_publish_at):
     # Parse the publish_at timestamp
     #publish_at = "2025-01-07T22:00:00Z"  # Example input
@@ -169,7 +236,8 @@ if __name__ == "__main__":
     video_link = read_file(VIDEO_LINK_FILE)
     thumbnail_link = read_file(THUMBNAIL_LINK_FILE)
     thumbnail_link = read_file(THUMBNAIL_LINK_FILE)
-    publish_at = read_file(PUBLISH_TIME_FILE)
+    #publish_at = read_file(PUBLISH_TIME_FILE)
+    publish_at = read_github_variable("PUBLISH_AT")
 
     # Download video and thumbnail
     download_file(video_link, VIDEO_FILE)
