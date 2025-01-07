@@ -40,8 +40,8 @@ REPO_OWNER = "naveedshahzad"
 REPO_NAME = "lifefule"
 
 def update_github_variable(variable_name, new_value):
-    #GITHUB_TOKEN = read_file(GITHUB_TOKEN_FILE)  # Your GitHub personal access token
-    GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+    GITHUB_TOKEN = read_file(GITHUB_TOKEN_FILE)  # Your GitHub personal access token
+    #GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
     # GitHub API endpoint for updating repository variables
     api_url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/actions/variables/{variable_name}"
 
