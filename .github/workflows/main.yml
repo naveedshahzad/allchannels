@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'video/**'  # Trigger only when files in the video folder change
-
+permissions: write-all
 jobs:
   upload:
     runs-on: ubuntu-latest
