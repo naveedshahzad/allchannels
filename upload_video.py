@@ -72,11 +72,13 @@ def update_publish_at(prevouse_publish_at):
     publish_at = prevouse_publish_at  # Example input
     time = datetime.fromisoformat(publish_at.replace("Z", "+00:00"))
 
+    print(f"{time.isoformat()} hour {time.hour}")
     # Adjust time based on the hour
     if time.hour == 22:
         time += timedelta(hours=15)
     else:
         time += timedelta(hours=9)
+    print(f"{time.isoformat()} hour {time.hour}")
 
     update_github_variable("PUBLISH_AT", time.isoformat())
     ## Write the updated time to a file
