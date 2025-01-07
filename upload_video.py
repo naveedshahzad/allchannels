@@ -88,8 +88,8 @@ def upload_video_to_youtube(title, description, video_path, thumbnail_path, publ
             'categoryId': 22,
             #channel_id: "UCPS1Y5fHLenoiRUE3JOhV8w",
         },
-        status: {
-            'privacyStatus': privacy_status,
+        'status': {
+            'privacyStatus': 'private',
             'publishAt': publish_at,
             'madeForKids': false,
             'selfDeclaredMadeForKids': false,
