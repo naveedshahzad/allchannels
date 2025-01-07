@@ -1,1 +1,1 @@
-https://vm-presentations.s3.ap-south-1.amazonaws.com/G7NxxfBB4P4FmQy4yArP//Users/naveed/vinay/mp3_files/G7NxxfBB4P4FmQy4yArP/a7b067b7-32be-41a2-9564-bbdc37388298-bgmusic.mp4.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIASOOWYCC4YHSPEL64%2F20250107%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20250107T160611Z&X-Amz-Expires=3600&X-Amz-Signature=675b9b8dd7282af2570505d0004ccfb93b307894754d7f357a2228cf4b07506a&X-Amz-SignedHeaders=host&x-id=GetObject
+https://i.ytimg.com/vi/_06dOni0od4/maxresdefault.jpg
