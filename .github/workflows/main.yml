@@ -36,7 +36,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          echo "$GH_TOKEN" | base64 -d > gh_token.txt
+          echo "$GH_TOKEN" > gh_token.txt
 
       - name: Upload video
         run: python upload_video.py
