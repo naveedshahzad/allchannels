@@ -60,7 +60,7 @@ def update_github_variable(variable_name, new_value):
     # Make a PATCH request to update the variable
     response = requests.patch(api_url, headers=headers, json=payload)
 
-    if response.status_code == 200:
+    if response.status_code >= 200 and response.status_code <= 300:
         print(f"Variable '{variable_name}' updated successfully to '{new_value}'.")
     else:
         print(f"Failed to update variable. Status code: {response.status_code}")
