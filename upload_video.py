@@ -118,8 +118,8 @@ def upload_video_to_youtube(title, description, video_path, thumbnail_path, publ
     #    ).execute()
     #    print(f"Thumbnail uploaded.")
     #    update_publish_at(publish_at)
-    else:
-        print("Video upload failed, no ID in response.")
+    #else:
+    #    print("Video upload failed, no ID in response.")
 
 if __name__ == "__main__":
     # Read metadata from files
