@@ -79,44 +79,45 @@ def upload_video_to_youtube(title, description, video_path, thumbnail_path, publ
     # Build the YouTube API client
     youtube = build('youtube', 'v3', credentials=credentials)
 
+    update_publish_at(publish_at)
     # Video metadata
-    request_body = {
-        'snippet': {
-            'title': title,
-            'description': description,
-            #'tags': [title.split(" ").first, title.split(" ").last, description.split(" ").last],
-            'categoryId': 22,
-            #channel_id: "UCPS1Y5fHLenoiRUE3JOhV8w",
-        },
-        'status': {
-            'privacyStatus': 'private',
-            'publishAt': publish_at,
-            'madeForKids': False,
-            'selfDeclaredMadeForKids': False,
-        }
-    }
+    #request_body = {
+    #    'snippet': {
+    #        'title': title,
+    #        'description': description,
+    #        #'tags': [title.split(" ").first, title.split(" ").last, description.split(" ").last],
+    #        'categoryId': 22,
+    #        #channel_id: "UCPS1Y5fHLenoiRUE3JOhV8w",
+    #    },
+    #    'status': {
+    #        'privacyStatus': 'private',
+    #        'publishAt': publish_at,
+    #        'madeForKids': False,
+    #        'selfDeclaredMadeForKids': False,
+    #    }
+    #}
 
-    # Upload video
-    print(f"Uploading video: {video_path}")
-    media = MediaFileUpload(video_path, chunksize=-1, resumable=True)
-    video_request = youtube.videos().insert(
-        part='snippet,status',
-        body=request_body,
-        media_body=media
-    )
+    ## Upload video
+    #print(f"Uploading video: {video_path}")
+    #media = MediaFileUpload(video_path, chunksize=-1, resumable=True)
+    #video_request = youtube.videos().insert(
+    #    part='snippet,status',
+    #    body=request_body,
+    #    media_body=media
+    #)
 
-    response = video_request.execute()
-    if 'id' in response:
-        print(f"Video uploaded: {response['id']}")
+    #response = video_request.execute()
+    #if 'id' in response:
+    #    print(f"Video uploaded: {response['id']}")
 
-        # Upload thumbnail
-        print(f"Uploading thumbnail: {thumbnail_path}")
-        youtube.thumbnails().set(
-            videoId=response['id'],
-            media_body=MediaFileUpload(thumbnail_path)
-        ).execute()
-        print(f"Thumbnail uploaded.")
-        update_publish_at(publish_at)
+    #    # Upload thumbnail
+    #    print(f"Uploading thumbnail: {thumbnail_path}")
+    #    youtube.thumbnails().set(
+    #        videoId=response['id'],
+    #        media_body=MediaFileUpload(thumbnail_path)
+    #    ).execute()
+    #    print(f"Thumbnail uploaded.")
+    #    update_publish_at(publish_at)
     else:
         print("Video upload failed, no ID in response.")
 
