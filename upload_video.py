@@ -84,7 +84,7 @@ def upload_video_to_youtube(title, description, video_path, thumbnail_path, publ
         'snippet': {
             'title': title,
             'description': description,
-            'tags': [title.split(" ").first, title.split(" ").last, description.split(" ").last],
+            #'tags': [title.split(" ").first, title.split(" ").last, description.split(" ").last],
             'categoryId': 22,
             #channel_id: "UCPS1Y5fHLenoiRUE3JOhV8w",
         },
