@@ -42,7 +42,7 @@ REPO_NAME = "lifefule"
 def update_github_variable(variable_name, new_value):
     GITHUB_TOKEN = read_file(GITHUB_TOKEN_FILE)  # Your GitHub personal access token
     # GitHub API endpoint for updating repository variables
-    api_url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/actions/variables/{VARIABLE_NAME}"
+    api_url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/actions/variables/{variable_name}"
 
     # Request headers
     headers = {
