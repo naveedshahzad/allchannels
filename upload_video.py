@@ -87,11 +87,12 @@ def read_github_variable(variable_name):
     response = requests.get(api_url, headers=headers)
 
     if response.status_code >= 200 and response.status_code <= 300:
-        print(f"Variable '{variable_name}' read successfully as '{response.text}' or {response.text}.")
+        print(f"Variable '{variable_name}' read successfully, value = {response.json().get('value')}.")
+        return response.json().get("value")
     else:
-        print(f"error Variable '{variable_name}' read successfully as '{response.text}' or {response.text}.")
         print(f"Failed to update variable. Status code: {response.status_code}")
         print(f"Response: {response.text}")
+        return "error"
 
 def update_publish_at(prevouse_publish_at):
     # Parse the publish_at timestamp
