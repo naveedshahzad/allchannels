@@ -30,7 +30,7 @@ def download_file(url, local_path):
             f.write(chunk)
     print(f"Downloaded {local_path}")
 
-def update_publish_at(prevouse_publish_at)
+def update_publish_at(prevouse_publish_at):
     # Parse the publish_at timestamp
     #publish_at = "2025-01-07T22:00:00Z"  # Example input
     publish_at = prevouse_publish_at  # Example input
@@ -116,6 +116,7 @@ def upload_video_to_youtube(title, description, video_path, thumbnail_path, publ
             media_body=MediaFileUpload(thumbnail_path)
         ).execute()
         print(f"Thumbnail uploaded.")
+        update_publish_at(publish_at)
     else:
         print("Video upload failed, no ID in response.")
 
