@@ -91,8 +91,8 @@ def upload_video_to_youtube(title, description, video_path, thumbnail_path, publ
         'status': {
             'privacyStatus': 'private',
             'publishAt': publish_at,
-            'madeForKids': false,
-            'selfDeclaredMadeForKids': false,
+            'madeForKids': False,
+            'selfDeclaredMadeForKids': False,
         }
     }
 
