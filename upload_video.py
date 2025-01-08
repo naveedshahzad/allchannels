@@ -12,7 +12,6 @@ TITLE_FILE = os.path.join(BASE_DIR, "title.txt")
 DESCRIPTION_FILE = os.path.join(BASE_DIR, "description.txt")
 VIDEO_LINK_FILE = os.path.join(BASE_DIR, "video_link.txt")
 THUMBNAIL_LINK_FILE = os.path.join(BASE_DIR, "thumbnail_link.txt")
-PUBLISH_TIME_FILE = "publish_time.txt"
 VIDEO_FILE = "video.mp4"
 THUMBNAIL_FILE = "thumbnail.jpg"
 GITHUB_TOKEN_FILE = "gh_token.txt"
@@ -237,7 +236,6 @@ if __name__ == "__main__":
     video_link = read_file(VIDEO_LINK_FILE)
     thumbnail_link = read_file(THUMBNAIL_LINK_FILE)
     thumbnail_link = read_file(THUMBNAIL_LINK_FILE)
-    #publish_at = read_file(PUBLISH_TIME_FILE)
     publish_at = read_github_variable("PUBLISH_AT")
 
     # Download video and thumbnail
