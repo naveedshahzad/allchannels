@@ -3,7 +3,7 @@ name: Upload Video to YouTube
 on:
   push:
     paths:
-      - 'video/**'  # Trigger only when files in the video folder change
+      - 'video_id.txt'  # Trigger only when video_id file is modified
 permissions: write-all
 jobs:
   upload:
