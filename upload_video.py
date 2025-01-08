@@ -160,7 +160,6 @@ if __name__ == "__main__":
     description = read_file(DESCRIPTION_FILE)
     video_link = read_file(VIDEO_LINK_FILE)
     thumbnail_link = read_file(THUMBNAIL_LINK_FILE)
-    thumbnail_link = read_file(THUMBNAIL_LINK_FILE)
     publish_at = read_github_variable("PUBLISH_AT")
 
     # Download video and thumbnail
