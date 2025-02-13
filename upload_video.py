@@ -35,7 +35,7 @@ import requests
 
 # Replace with your GitHub details
 REPO_OWNER = "naveedshahzad"
-REPO_NAME = "lifefule"
+REPO_NAME = "allchannels"
 GITHUB_TOKEN = read_file(GITHUB_TOKEN_FILE)  # Your GitHub personal access token
 BRANCH_NAME = os.getenv("BRANCH_NAME")
 
