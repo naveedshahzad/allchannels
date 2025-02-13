@@ -5,6 +5,7 @@ on:
     branches:
       - HOPEHEADLINES
       - LIFEFULE
+      - URDUSTORIES
     paths:
       - 'video_id.txt'  # Trigger only when video_id file is modified
 permissions: write-all
