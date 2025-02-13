@@ -35,7 +35,7 @@ import requests
 
 # Replace with your GitHub details
 REPO_OWNER = "naveedshahzad"
-REPO_NAME = "lifefule"
+REPO_NAME = "allchannels"
 GITHUB_TOKEN = read_file(GITHUB_TOKEN_FILE)  # Your GitHub personal access token
 BRANCH_NAME = os.getenv("BRANCH_NAME")
 
@@ -82,7 +82,7 @@ def read_github_variable(variable_name):
         print(f"Variable '{variable_name}' read successfully, value = {response.json().get('value')}.")
         return response.json().get("value")
     else:
-        print(f"Failed to update variable. Status code: {response.status_code}")
+        print(f"Failed to read variable {variable_name}. Status code: {response.status_code}")
         print(f"Response: {response.text}")
         return "error"
 
