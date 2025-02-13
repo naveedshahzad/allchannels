@@ -2,6 +2,9 @@ name: Upload Video to YouTube
 
 on:
   push:
+    branches:
+      - HOPEHEADLINES
+      - LIFEFULE
     paths:
       - 'video_id.txt'  # Trigger only when video_id file is modified
 permissions: write-all
@@ -22,14 +25,14 @@ jobs:
       - name: Set environment variable from secret
         run: |
           BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}")
-          SECRET_VALUE=${{ secrets[format('{0}', github.ref_name)] }}
 
-          echo "Setting environment variable: $BRANCH_NAME=$SECRET_VALUE"
-          echo "$BRANCH_NAME=$SECRET_VALUE" >> $GITHUB_ENV
+          echo "Setting environment variable: BRANCH_NAME=$BRANCH_NAME"
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
       - name: Copy OAuth Token
         env:
-          TOKEN_PICKLE: ${{ secrets.TOKEN_PICKLE }}
+          TOKEN_PICKLE: ${{ secrets[format('{0}', github.ref_name)] }}
         run: |
+          echo "READ FROM SECRET: $BRANCH_NAME"
           echo "$TOKEN_PICKLE" | base64 -d > token.pickle
 
       - name: Copy GH Token

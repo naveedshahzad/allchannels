@@ -37,6 +37,7 @@ import requests
 REPO_OWNER = "naveedshahzad"
 REPO_NAME = "lifefule"
 GITHUB_TOKEN = read_file(GITHUB_TOKEN_FILE)  # Your GitHub personal access token
+BRANCH_NAME = os.getenv("BRANCH_NAME")
 
 def update_github_variable(variable_name, new_value):
     #GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
@@ -99,7 +100,7 @@ def update_publish_at(prevouse_publish_at):
         time += timedelta(hours=9)
     print(f"{time.isoformat()} hour {time.hour}")
 
-    update_github_variable("PUBLISH_AT", time.isoformat())
+    update_github_variable(f"{BRANCH_NAME}_PUBLISH_AT", time.isoformat())
 
     print("Publish time successfully updated on GitHub!")
 
@@ -160,7 +161,7 @@ if __name__ == "__main__":
     description = read_file(DESCRIPTION_FILE)
     video_link = read_file(VIDEO_LINK_FILE)
     thumbnail_link = read_file(THUMBNAIL_LINK_FILE)
-    publish_at = read_github_variable("PUBLISH_AT")
+    publish_at = read_github_variable(f"{BRANCH_NAME}_PUBLISH_AT")
 
     # Download video and thumbnail
     download_file(video_link, VIDEO_FILE)
