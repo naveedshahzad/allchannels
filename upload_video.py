@@ -17,6 +17,7 @@ THUMBNAIL_LINK_FILE = os.path.join(BASE_DIR, "thumbnail_link.txt")
 VIDEO_FILE = "video.mp4"
 THUMBNAIL_FILE = "thumbnail.jpg"
 GITHUB_TOKEN_FILE = "gh_token.txt"
+CHANNEL_ID_FILE = "channel_id.txt"
 
 def read_file(file_path):
     """Read content from a file."""
@@ -135,7 +136,7 @@ def upload_video_to_youtube(title, description, video_path, thumbnail_path, publ
             'description': description,
             #'tags': [title.split(" ").first, title.split(" ").last, description.split(" ").last],
             'categoryId': 22,
-            #channel_id: "UCPS1Y5fHLenoiRUE3JOhV8w",
+            channel_id: File.read(CHANNEL_ID_FILE),
         },
         'status': {
             'privacyStatus': 'private',
