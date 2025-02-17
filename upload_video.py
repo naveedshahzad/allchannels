@@ -136,7 +136,7 @@ def upload_video_to_youtube(title, description, video_path, thumbnail_path, publ
             'description': description,
             #'tags': [title.split(" ").first, title.split(" ").last, description.split(" ").last],
             'categoryId': 22,
-            'channel_id': read_file(CHANNEL_ID_FILE),
+            #'channel_id': read_file(CHANNEL_ID_FILE),
         },
         'status': {
             'privacyStatus': 'private',
