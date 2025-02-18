@@ -111,6 +111,7 @@ def load_credentials():
     """Load credentials from a JSON file."""
     with open("token.pickle", "r") as f:
         data = json.load(f)
+    print(f"Data '{data}' received '{data["client_id"]}'.")
     return Credentials(
         token=data["token"],
         refresh_token=data["refresh_token"],
