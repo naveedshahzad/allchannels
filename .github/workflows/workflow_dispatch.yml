@@ -70,6 +70,9 @@ jobs:
       - name: Modify video_url.txt
         run: echo "${{ github.event.inputs.video_url }}" > video/video_link.txt
 
+      - name: Modify video_id.txt
+        run: echo "${{ github.event.inputs.video_id }}" > video_id.txt
+
       - name: Commit changes
         run: |
           git config --global user.name "github-actions[bot]"
