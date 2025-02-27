@@ -18,6 +18,10 @@ on:
       video_url:
         description: "Video URL"
         required: true
+      video_id:
+        description: "Video ID"
+        required: true
+        
 
 jobs:
   create-issue:
@@ -54,21 +58,21 @@ jobs:
           ref: ${{ github.event.inputs.branch_name }}
 
       - name: Modify title.txt
-        run: echo "${{ github.event.inputs.title }}" > title.txt
+        run: echo "${{ github.event.inputs.title }}" > video/title.txt
 
       - name: Modify desc.txt
-        run: echo "${{ github.event.inputs.desc }}" > desc.txt
+        run: echo "${{ github.event.inputs.desc }}" > video/description.txt
 
       - name: Modify thumbnail.txt
-        run: echo "${{ github.event.inputs.thumbnail_url }}" > thumbnail.txt
+        run: echo "${{ github.event.inputs.thumbnail_url }}" > video/thumbnail_link.txt
 
       - name: Modify video_url.txt
-        run: echo "${{ github.event.inputs.video_url }}" > video_url.txt
+        run: echo "${{ github.event.inputs.video_url }}" > video/video_link.txt
 
       - name: Commit changes
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add title.txt desc.txt thumbnail.txt video_url.txt
+          git add video video_id.txt
           git commit -m "Update files with workflow inputs"
           git push origin ${{ github.event.inputs.branch_name }}
