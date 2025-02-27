@@ -77,9 +77,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}
+          git config --global user.name "Naveed Shahzad"
+          git config --global user.email "naveedkpr+1@gmail.com"
+          git remote set-url origin https://naveedshahzad:${GH_TOKEN}@github.com/${{ github.repository }}
           git add video video_id.txt
           git commit -m "Uploading ${{ github.event.inputs.video_id }} to ${{ github.event.inputs.branch_name }}"
           git push origin ${{ github.event.inputs.branch_name }}
