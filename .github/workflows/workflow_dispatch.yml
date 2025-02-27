@@ -32,9 +32,10 @@ jobs:
         with:
           script: |
             const inputs = context.payload.inputs;
-            const { title, desc, thumbnail_url, video_url } = inputs;
-            const issueTitle = `New Issue: ${title}`;
+            const { title, desc, thumbnail_url, video_url, video_id } = inputs;
+            const issueTitle = `${title} - ${video_id}`;
             const issueBody = `
+            **Title**: ${title}
             **Description**: ${desc}
             **Thumbnail URL**: ${thumbnail_url}
             **Video URL**: ${video_url}
@@ -74,5 +75,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add video video_id.txt
-          git commit -m "Update files with workflow inputs"
+          git commit -m "Uploading ${{ github.event.inputs.video_id }} to ${{ github.event.inputs.branch_name }}"
           git push origin ${{ github.event.inputs.branch_name }}
