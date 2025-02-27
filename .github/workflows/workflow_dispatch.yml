@@ -74,9 +74,12 @@ jobs:
         run: echo "${{ github.event.inputs.video_id }}" > video_id.txt
 
       - name: Commit changes
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}
           git add video video_id.txt
           git commit -m "Uploading ${{ github.event.inputs.video_id }} to ${{ github.event.inputs.branch_name }}"
           git push origin ${{ github.event.inputs.branch_name }}
