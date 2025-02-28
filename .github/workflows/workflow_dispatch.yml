@@ -57,7 +57,7 @@ jobs:
             const issueBody = `
             **Title**: ${title}
             **Description**: ${desc}
-            ![Thumbnail](thumbnail.jpg)
+            ![Thumbnail](${thumbnailUrl})
             **Video URL**: ${video_url}
             `;
             const issue = await github.rest.issues.create({
