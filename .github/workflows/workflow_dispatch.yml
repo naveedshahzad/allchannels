@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: Download Thumbnail
         run: |
-          curl -o ${{ github.event.inputs.video_id }}-thumbnail.jpg ${{ github.event.inputs.thumbnail_url }}
+          curl -o thumbnail.jpg ${{ github.event.inputs.thumbnail_url }}
    
       - name: Upload Thumbnail to Repository
         id: upload-thumbnail
@@ -37,7 +37,7 @@ jobs:
           base64 thumbnail.jpg > thumbnail_base64.txt
           gh api \
             -H "Accept: application/vnd.github.v3+json" \
-            /repos/${{ github.repository }}/contents/images/thumbnail.jpg \
+            /repos/${{ github.repository }}/contents/images/${{ github.event.inputs.video_id }}-thumbnail.jpg \
             -f message="Upload thumbnail for video ${{ github.event.inputs.video_id }}" \
             -f content="$(cat thumbnail_base64.txt)" \
             -f branch=${{ github.event.inputs.branch_name }}
