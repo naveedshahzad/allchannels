@@ -8,6 +8,7 @@ on:
       - URDUSTORIES
     paths:
       - 'video_id.txt'  # Trigger only when video_id file is modified
+  workflow_dispatch:
 permissions: write-all
 jobs:
   upload:
