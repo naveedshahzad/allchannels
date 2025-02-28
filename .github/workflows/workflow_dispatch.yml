@@ -31,16 +31,20 @@ jobs:
         run: |
           curl -o thumbnail.jpg ${{ github.event.inputs.thumbnail_url }}
    
-      - name: Upload Thumbnail to Repository
+      - name: Split and Upload Thumbnail
         id: upload-thumbnail
         run: |
           base64 thumbnail.jpg > thumbnail_base64.txt
-          gh api \
-            -H "Accept: application/vnd.github.v3+json" \
-            /repos/${{ github.repository }}/contents/images/${{ github.event.inputs.video_id }}-thumbnail.jpg \
-            -f message="Upload thumbnail for video ${{ github.event.inputs.video_id }}" \
-            -f content="$(cat thumbnail_base64.txt)" \
-            -f branch=${{ github.event.inputs.branch_name }}
+          split --bytes=50000 thumbnail_base64.txt thumbnail_part_
+          for file in thumbnail_part_*
+          do
+            gh api \
+              -H "Accept: application/vnd.github.v3+json" \
+              /repos/${{ github.repository }}/contents/images/${{ github.event.inputs.video_id }}-thumbnail.jpg \
+              -f message="Upload thumbnail part $file for video ${{ github.event.inputs.video_id }}" \
+              -f content="$(cat $file)" \
+              -f branch=${{ github.event.inputs.branch_name }}
+          done
 
       - name: Create GitHub Issue
         uses: actions/github-script@v6
