@@ -56,13 +56,9 @@ jobs:
             const thumbnailUrl = `https://raw.githubusercontent.com/${context.repo.owner}/${context.repo.repo}/${inputs.branch_name}/images/${inputs.video_id}-thumbnail.jpg`;
             const issueBody = `
             Channel: ${inputs.branch_name}<br />
-            <br />
             ${title}<br />
-            <br />
             ${desc}<br />
-            <br />
             ${video_url}<br />
-            <br />
             ![Thumbnail](${thumbnailUrl})
             `;
             const issue = await github.rest.issues.create({
