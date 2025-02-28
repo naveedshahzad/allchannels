@@ -29,7 +29,18 @@ jobs:
     steps:
       - name: Download Thumbnail
         run: |
-          curl -o thumbnail.jpg ${{ github.event.inputs.thumbnail_url }}
+          curl -o ${{ github.event.inputs.video_id }}-thumbnail.jpg ${{ github.event.inputs.thumbnail_url }}
+   
+      - name: Upload Thumbnail to Repository
+        id: upload-thumbnail
+        run: |
+          base64 thumbnail.jpg > thumbnail_base64.txt
+          gh api \
+            -H "Accept: application/vnd.github.v3+json" \
+            /repos/${{ github.repository }}/contents/images/thumbnail.jpg \
+            -f message="Upload thumbnail for video ${{ github.event.inputs.video_id }}" \
+            -f content="$(cat thumbnail_base64.txt)" \
+            -f branch=${{ github.event.inputs.branch_name }}
 
       - name: Create GitHub Issue
         uses: actions/github-script@v6
@@ -38,6 +49,7 @@ jobs:
             const inputs = context.payload.inputs;
             const { title, desc, thumbnail_url, video_url, video_id } = inputs;
             const issueTitle = `${title} - ${video_id}`;
+            const thumbnailUrl = `https://raw.githubusercontent.com/${context.repo.owner}/${context.repo.repo}/${inputs.branch_name}/images/${inputs.video_id}-thumbnail.jpg`;
             const issueBody = `
             **Title**: ${title}
             **Description**: ${desc}
