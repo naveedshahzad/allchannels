@@ -27,6 +27,16 @@ jobs:
   create-issue:
     runs-on: ubuntu-latest
     steps:
+      - name: Download Thumbnail
+        run: |
+          curl -o thumbnail.jpg ${{ github.event.inputs.thumbnail_url }}
+
+      - name: Upload Thumbnail
+        uses: actions/upload-artifact@v3
+        with:
+          name: thumbnail
+          path: thumbnail.jpg
+
       - name: Create GitHub Issue
         uses: actions/github-script@v6
         with:
@@ -37,7 +47,7 @@ jobs:
             const issueBody = `
             **Title**: ${title}
             **Description**: ${desc}
-            **Thumbnail URL**: ${thumbnail_url}
+            ![Thumbnail](https://github.com/${context.repo.owner}/${context.repo.repo}/suites/${process.env.GITHUB_RUN_ID}/artifacts/${process.env.GITHUB_RUN_ID}/thumbnail.jpg)
             **Video URL**: ${video_url}
             `;
             const issue = await github.rest.issues.create({
