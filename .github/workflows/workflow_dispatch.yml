@@ -52,13 +52,18 @@ jobs:
           script: |
             const inputs = context.payload.inputs;
             const { title, desc, thumbnail_url, video_url, video_id } = inputs;
-            const issueTitle = `${title} - ${video_id}`;
+            const issueTitle = `Video ${video_id} ${title}`;
             const thumbnailUrl = `https://raw.githubusercontent.com/${context.repo.owner}/${context.repo.repo}/${inputs.branch_name}/images/${inputs.video_id}-thumbnail.jpg`;
             const issueBody = `
-            **Title**: ${title}
-            **Description**: ${desc}
+            Channel: ${inputs.branch_name}<br />
+            <br />
+            ${title}<br />
+            <br />
+            ${desc}<br />
+            <br />
+            ${video_url}<br />
+            <br />
             ![Thumbnail](${thumbnailUrl})
-            **Video URL**: ${video_url}
             `;
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
