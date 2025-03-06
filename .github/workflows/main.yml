@@ -9,6 +9,11 @@ on:
     paths:
       - 'video_id.txt'  # Trigger only when video_id file is modified
   workflow_dispatch:
+    inputs:
+      video_id:
+        description: "VideoID"
+        required: false
+run-name: Uploading ${{ github.event.inputs.video_id }} to ${{ github.ref_name }}
 permissions: write-all
 jobs:
   upload:
