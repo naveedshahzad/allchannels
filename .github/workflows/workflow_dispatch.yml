@@ -22,23 +22,45 @@ on:
         description: "Video ID"
         required: true
         
+run-name: Preparing Upload for ${{ github.event.inputs.video_id }} to ${{ github.event.inputs.branch_name }}
 
 jobs:
   create-issue:
     runs-on: ubuntu-latest
     steps:
+      - name: Download Thumbnail
+        run: |
+          curl -o thumbnail.jpg ${{ github.event.inputs.thumbnail_url }}
+   
+      - name: Upload Thumbnail to Repository
+        id: upload-thumbnail
+        run: |
+          base64 thumbnail.jpg > thumbnail_base64.txt
+          CONTENT=$(cat thumbnail_base64.txt)
+          curl -X PUT -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
+               -H "Content-Type: application/json" \
+               -d @- https://api.github.com/repos/${{ github.repository }}/contents/images/${{ github.event.inputs.video_id }}-thumbnail.jpg <<EOF
+          {
+            "message": "Upload thumbnail for video ${{ github.event.inputs.video_id }}",
+            "content": "$CONTENT",
+            "branch": "${{ github.event.inputs.branch_name }}"
+          }
+          EOF
+
       - name: Create GitHub Issue
         uses: actions/github-script@v6
         with:
           script: |
             const inputs = context.payload.inputs;
-            const { title, desc, thumbnail_url, video_url, video_id } = inputs;
-            const issueTitle = `${title} - ${video_id}`;
+            const { branch_name, title, desc, thumbnail_url, video_url, video_id } = inputs;
+            const issueTitle = `[${branch_name}] Video ${video_id} ${title}`;
+            const thumbnailUrl = `https://raw.githubusercontent.com/${context.repo.owner}/${context.repo.repo}/${inputs.branch_name}/images/${inputs.video_id}-thumbnail.jpg`;
             const issueBody = `
-            **Title**: ${title}
-            **Description**: ${desc}
-            **Thumbnail URL**: ${thumbnail_url}
-            **Video URL**: ${video_url}
+            Channel: ${branch_name}<br />
+            ${title}<br />
+            ${desc}<br />
+            ${video_url}<br />
+            ![Thumbnail](${thumbnailUrl})
             `;
             const issue = await github.rest.issues.create({
               owner: context.repo.owner,
