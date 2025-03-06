@@ -9,6 +9,11 @@ on:
     paths:
       - 'video_id.txt'  # Trigger only when video_id file is modified
   workflow_dispatch:
+    inputs:
+      video_id:
+        description: "ID of the video"
+        required: false
+
 permissions: write-all
 jobs:
   upload:
